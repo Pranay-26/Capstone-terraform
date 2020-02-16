@@ -96,7 +96,7 @@ resource "aws_instance" "petclinic-web2" {
     associate_public_ip_address = true
     vpc_security_group_ids      = [ "${aws_security_group.my_sg.id}" ]
     tags = {
-        Name = "spring-petclinic"
+        Name = "spring-petclinic2"
     }
 
 }
