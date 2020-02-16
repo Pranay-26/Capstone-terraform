@@ -111,7 +111,7 @@ provisioner "local-exec" {
         echo "[jenkins-ci]"| tee -a jenkins-ci2.ini;
         export ANSIBLE_HOST_KEY_CHECKING=False;
         echo "${aws_instance.petclinic-web.public_ip}" | tee -a jenkins-ci.ini;
-        echo "${aws_instance.petclinic-web.public_ip}" | tee -a jenkins-ci2.ini;
+        echo "${aws_instance.petclinic-web2.public_ip}" | tee -a jenkins-ci2.ini;
     EOT
 }
 }
