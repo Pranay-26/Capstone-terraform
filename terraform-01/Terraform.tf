@@ -88,30 +88,15 @@ resource "aws_instance" "petclinic-web" {
     }
 
 }
-resource "aws_instance" "petclinic-web2" {
-    ami                         = "ami-0f2cc133ca38673a8"
-    instance_type               = "t2.micro"
-    key_name                    = "${var.key_name}"
-    subnet_id                   = "${aws_subnet.pub_subnet.id}"
-    associate_public_ip_address = true
-    vpc_security_group_ids      = [ "${aws_security_group.my_sg.id}" ]
-    tags = {
-        Name = "spring-petclinic2"
-    }
 
-}
 resource "null_resource" "ansible-main" {
 provisioner "local-exec" {
   command = <<EOT
         sleep 100;
         > jenkins-ci.ini;
-        > jenkins-ci2.ini;
         echo "[jenkins-ci]"| tee -a jenkins-ci.ini; 
         export ANSIBLE_HOST_KEY_CHECKING=False;
-        echo "[jenkins-ci]"| tee -a jenkins-ci2.ini;
-        export ANSIBLE_HOST_KEY_CHECKING=False;
         echo "${aws_instance.petclinic-web.public_ip}" | tee -a jenkins-ci.ini;
-        echo "${aws_instance.petclinic-web2.public_ip}" | tee -a jenkins-ci2.ini;
     EOT
 }
 }
